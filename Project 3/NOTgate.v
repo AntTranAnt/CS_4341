@@ -1,3 +1,7 @@
+//-------------------------------------------------
+// Cohort: OnOff
+// Tony Tran, Hasan Kadado, Anthony Tran, Angel Gomez
+//-------------------------------------------------
 module NOTgate(inputA,outputC);
 	input  [15:0] inputA;
 	wire   [15:0] inputA;

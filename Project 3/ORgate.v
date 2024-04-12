@@ -1,3 +1,7 @@
+//-------------------------------------------------
+// Cohort: OnOff
+// Tony Tran, Hasan Kadado, Anthony Tran, Angel Gomez
+//-------------------------------------------------
 module ORgate(inputA,inputB,outputC);
     input  [15:0] inputA;
     input  [15:0] inputB;
