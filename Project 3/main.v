@@ -71,30 +71,46 @@ reg modeADD;
 reg modeSUB;
 reg modeDIV;
 reg modeMOD;
+reg modeMUL;
+
+reg modeNOT;
+reg modeXNOR;
+reg modeNAND;
+reg modeAND;
+reg modeOR;
+reg modeXOR;
+reg modeNOR;
 
 //=======================================================
 // Connect the MUX to the OpCodes
-// Channel 4, Opcode 0100, Addition
-// Channel 5, Opcode 0101, Subtraction
-// Channel 6, Opcode 0110, Mulitplication
-// Channel 7, Opcode 0111, Division (Behavioral)
-// Channel 8, Opcode 1000, Modulus (Behavioral)
+// Channel 3, Opcode 0011, Not
+// Channel 4, Opcode 0100, Xnor
+// Channel 5, Opcode 0101, Nand
+// Channel 6, Opcode 0110, And
+// Channel 7, Opcode 0111, Or
+// Channel 8, Opcode 1000, Xor
+// Channel 9, Opcode 1001, Nor
+// Channel 10, Opcode 1010, Multiplication
+// Channel 11, Opcode 1011, Addition
+// Channel 12, Opcode 1100, Subtraction
+// Channel 13, Opcode 1101, Division (Behavioral)
+// Channel 14, Opcode 1110, Modulus (Behavioral)
 //=======================================================
 assign channels[ 0]=unknown;
 assign channels[ 1]=unknown;
 assign channels[ 2]=unknown;
-assign channels[ 3]=unknown;
-assign channels[ 4]=outputADDSUB;
-assign channels[ 5]=outputADDSUB;
-assign channels[ 6]=outputMUL;
-assign channels[ 7]=outputDIV;
-assign channels[ 8]=outputMOD;
-assign channels[ 9]=unknown;
-assign channels[10]=unknown;
-assign channels[11]=unknown;
-assign channels[12]=unknown;
-assign channels[13]=unknown;
-assign channels[14]=unknown;
+assign channels[ 3]=outputNOT;
+assign channels[ 4]=outputXNOR;
+assign channels[ 5]=outputNAND;
+assign channels[ 6]=outputAND;
+assign channels[ 7]=outputOR;
+assign channels[ 8]=outputXOR;
+assign channels[ 9]=outputNOR;
+assign channels[10]=outputMUL;
+assign channels[11]=outputADDSUB;
+assign channels[12]=outputADDSUB;
+assign channels[13]=outputDIV;
+assign channels[14]=outputMOD;
 assign channels[15]=unknown;
 
 //====================================================
@@ -105,10 +121,18 @@ assign channels[15]=unknown;
    always@(*)
    begin
     outputC = b; //Just a jumper
-   modeADD=~opcode[3]& opcode[2]&~opcode[1]&~opcode[0];//0100, Channel 4
-   modeSUB=~opcode[3]& opcode[2]&~opcode[1]& opcode[0];//0101, Channel 5
-   modeDIV=~opcode[3]& opcode[2]& opcode[1]& opcode[0];//0111, Channel 7
-   modeMOD= opcode[3]&~opcode[2]&~opcode[1]&~opcode[0];//1000, Channel 8
+   modeNOT=~opcode[3]&~opcode[2]& opcode[1]& opcode[0];//0011, Channel 3
+   modeXNOR=~opcode[3]& opcode[2]&~opcode[1]&~opcode[0];//0100, Channel 4
+   modeNAND=~opcode[3]& opcode[2]&~opcode[1]& opcode[0];//0101, Channel 5
+   modeAND=~opcode[3]& opcode[2]& opcode[1]&~opcode[0];//0110, Channel 6
+   modeOR=~opcode[3]& opcode[2]& opcode[1]& opcode[0];//0111, Channel 7
+   modeXOR= opcode[3]&~opcode[2]&~opcode[1]&~opcode[0];//1000, Channel 8
+   modeNOR= opcode[3]&~opcode[2]&~opcode[1]& opcode[0];//1001, Channel 9
+   modeMUL= opcode[3]&~opcode[2]& opcode[1]&~opcode[0];//1010, Channel 10
+   modeADD= opcode[3]&~opcode[2]& opcode[1]& opcode[0];//1011, Channel 11
+   modeSUB= opcode[3]& opcode[2]&~opcode[1]&~opcode[0];//1100, Channel 12
+   modeDIV= opcode[3]& opcode[2]&~opcode[1]& opcode[0];//1101, Channel 13
+   modeMOD= opcode[3]& opcode[2]& opcode[1]&~opcode[0];//1110, Channel 14
    
    error[0]=ADDerror&(modeADD|modeSUB);//Only show overflow if in add or subtract operation
    error[1]=(DIVerror|MODerror)&(modeDIV|modeMOD);//only show divide by zero if in division or modulus operation
