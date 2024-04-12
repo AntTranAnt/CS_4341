@@ -96,3 +96,49 @@ assign channels[12]=unknown;
 assign channels[13]=unknown;
 assign channels[14]=unknown;
 assign channels[15]=unknown;
+
+//====================================================
+//Perform the gate-level operations in the Breadboard
+//====================================================
+ // Gate-level operations
+   
+   always@(*)
+   begin
+    outputC = b; //Just a jumper
+   modeADD=~opcode[3]& opcode[2]&~opcode[1]&~opcode[0];//0100, Channel 4
+   modeSUB=~opcode[3]& opcode[2]&~opcode[1]& opcode[0];//0101, Channel 5
+   modeDIV=~opcode[3]& opcode[2]& opcode[1]& opcode[0];//0111, Channel 7
+   modeMOD= opcode[3]&~opcode[2]&~opcode[1]&~opcode[0];//1000, Channel 8
+   
+   error[0]=ADDerror&(modeADD|modeSUB);//Only show overflow if in add or subtract operation
+   error[1]=(DIVerror|MODerror)&(modeDIV|modeMOD);//only show divide by zero if in division or modulus operation
+
+end
+
+endmodule
+
+//====================================================
+//TEST BENCH
+//====================================================
+module testbench();
+//====================================================
+//Local Variables
+//====================================================
+  reg [15:0] inputA;
+  reg [15:0] inputB;
+  reg [3:0] opcode; 
+  wire [31:0] outputC;
+  wire[1:0] error;
+//====================================================
+// Create Breadboard
+//====================================================
+	breadboard bb8(
+	.inputA(inputA),
+	.inputB(inputB),
+	.opcode(opcode),
+	.outputC(outputC),
+	.error(error));
+
+//====================================================
+// STIMULOUS
+//====================================================

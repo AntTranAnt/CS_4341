@@ -109,7 +109,7 @@ module testbench();
   reg [15:0] inputB;
   reg [3:0] opcode; 
   wire [31:0] outputC;
-  wire[15:0] higherC, lowerC;
+  wire[1:0] error;
 //====================================================
 // Create Breadboard
 //====================================================
@@ -117,7 +117,8 @@ module testbench();
 	.inputA(inputA),
 	.inputB(inputB),
 	.opcode(opcode),
-	.outputC(outputC));
+	.outputC(outputC),
+	.error(error));
 
 //====================================================
 // STIMULOUS
