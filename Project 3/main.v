@@ -196,7 +196,7 @@ module testbench();
 	//17409 + 4616
 	inputA=16'b100010000000001; //17409
 	inputB=16'b1001000001000; //4616
-	opcode=4'b0100;//ADD
+	opcode=4'b1011;//ADD
 	#10;
 	$fwrite(file, "|%4b",inputA);
 	$fwrite(file, "|%4b",inputB);
@@ -211,7 +211,7 @@ module testbench();
 	inputA=16'b10000000000010; //8194
 	inputB=16'b1100000000000; //6144
 	
-	opcode=4'b0101;//SUB
+	opcode=4'b1100;//SUB
 	#10;
 	$fwrite(file, "|%4b",inputA);
 	$fwrite(file, "|%4b",inputB);
@@ -225,7 +225,7 @@ module testbench();
 	//1024 * 4097
 	inputA=16'b10000000000; //1024
 	inputB=16'b1000000000001; //4097
-	opcode=4'b0110;//MULT
+	opcode=4'b1010;//MULT
 	#10;
 	$fwrite(file, "|%4b",inputA);
 	$fwrite(file, "|%4b",inputB);
@@ -239,7 +239,7 @@ module testbench();
 	//16384 / 1024
 	inputA=16'b100000000000000; //16384
 	inputB=16'b10000000000; //1024
-	opcode=4'b0111;//DIV
+	opcode=4'b1101;//DIV
 	#10;
 	$fwrite(file, "|%4b",inputA);
 	$fwrite(file, "|%4b",inputB);
@@ -253,7 +253,90 @@ module testbench();
 	//16391 % 1024
 	inputA=16'b100000000000111; //16391
 	inputB=16'b10000000000; //1024
-	opcode=4'b1000;//MOD
+	opcode=4'b1110;//MOD
+	#10;
+	$fwrite(file, "|%4b",inputA);
+	$fwrite(file, "|%4b",inputB);
+	$fwrite(file, "|  %4b",opcode);
+	$fwrite(file, "|%7b",higherC);	
+	$fwrite(file, "|%7b",lowerC);	
+	$fdisplay(file, "|");
+
+  //17409 + 4616
+	inputA=16'b100010000000001; //17409
+	inputB=16'b1001000001000; //4616
+	opcode=4'b0100;//XNOR
+	#10;
+	$fwrite(file, "|%4b",inputA);
+	$fwrite(file, "|%4b",inputB);
+	$fwrite(file, "|  %4b",opcode);
+	$fwrite(file, "|%7b",higherC);	
+	$fwrite(file, "|%7b",lowerC);	
+	$fdisplay(file, "|");
+
+	//---------------------------------
+
+	//8194 - 6144
+	inputA=16'b10000000000010; //8194
+	inputB=16'b1100000000000; //6144
+	
+	opcode=4'b0101;//NAND
+	#10;
+	$fwrite(file, "|%4b",inputA);
+	$fwrite(file, "|%4b",inputB);
+	$fwrite(file, "|  %4b",opcode);
+	$fwrite(file, "|%7b",higherC);	
+	$fwrite(file, "|%7b",lowerC);	
+	$fdisplay(file, "|");
+
+	//---------------------------------
+
+	//1024 * 4097
+	inputA=16'b10000000000; //1024
+	inputB=16'b1000000000001; //4097
+	opcode=4'b0110;//AND
+	#10;
+	$fwrite(file, "|%4b",inputA);
+	$fwrite(file, "|%4b",inputB);
+	$fwrite(file, "|  %4b",opcode);
+	$fwrite(file, "|%7b",higherC);	
+	$fwrite(file, "|%7b",lowerC);	
+	$fdisplay(file, "|");
+
+	//---------------------------------
+
+	//16384 / 1024
+	inputA=16'b100000000000000; //16384
+	inputB=16'b10000000000; //1024
+	opcode=4'b0111;//OR
+	#10;
+	$fwrite(file, "|%4b",inputA);
+	$fwrite(file, "|%4b",inputB);
+	$fwrite(file, "|  %4b",opcode);
+	$fwrite(file, "|%7b",higherC);	
+	$fwrite(file, "|%7b",lowerC);	
+	$fdisplay(file, "|");
+
+	//---------------------------------
+
+	//16391 % 1024
+	inputA=16'b100000000000111; //16391
+	inputB=16'b10000000000; //1024
+	opcode=4'b1000;//XOR
+	#10;
+	$fwrite(file, "|%4b",inputA);
+	$fwrite(file, "|%4b",inputB);
+	$fwrite(file, "|  %4b",opcode);
+	$fwrite(file, "|%7b",higherC);	
+	$fwrite(file, "|%7b",lowerC);	
+	$fdisplay(file, "|");
+
+  //---------------------------------
+
+  //17409 + 4616
+	inputA=16'b100010000000001; //17409
+	inputB=16'b1001000001000; //4616
+	opcode=4'b1001;//NOR
 	#10;
 	$fwrite(file, "|%4b",inputA);
 	$fwrite(file, "|%4b",inputB);
