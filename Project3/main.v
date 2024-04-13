@@ -18,6 +18,19 @@
 `include "ORgate.v"
 `include "XORgate.v"
 
+//=============================================
+// DFF
+//=============================================
+module DFF(clk,in,out);
+parameter n=1;//width
+input clk;
+input [n-1:0] in;
+output [n-1:0] out;
+reg [n-1:0] out;
+always @(posedge clk)
+out = in;
+endmodule
+
 //=================================================================
 //Breadboard
 //=================================================================
@@ -87,7 +100,6 @@ reg modeSUB;
 reg modeDIV;
 reg modeMOD;
 reg modeMUL;
-
 reg modeNOT;
 reg modeXNOR;
 reg modeNAND;
@@ -112,7 +124,8 @@ reg modeNOR;
 // Channel 14, Opcode 1110, Modulus (Behavioral)
 //=======================================================
 assign channels[ 0]=cur;        // No-Op
-assign channels[ 1]=0;            // Reset
+assign channels[ 1]=0;          // Reset
+
 //DFF Values
 reg  [31:0] next;
 wire [31:0] cur;
@@ -139,7 +152,7 @@ assign channels[15]=unknown;
    
    always@(*)
    begin
-    outputC = b; //Just a jumper
+   outputC = b; //Just a jumper
    modeNOT=~opcode[3]&~opcode[2]& opcode[1]& opcode[0];//0011, Channel 3
    modeXNOR=~opcode[3]& opcode[2]&~opcode[1]&~opcode[0];//0100, Channel 4
    modeNAND=~opcode[3]& opcode[2]&~opcode[1]& opcode[0];//0101, Channel 5
